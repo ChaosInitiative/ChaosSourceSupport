@@ -1,7 +1,7 @@
 plugins {
     id("java")
     id("org.jetbrains.kotlin.jvm") version "1.6.20"
-    id("org.jetbrains.intellij") version "1.6.0"
+    id("org.jetbrains.intellij") version "1.9.0"
     id("idea")
 }
 
@@ -19,11 +19,11 @@ repositories {
 }
 
 dependencies {
-    testImplementation( "org.junit.jupiter:junit-jupiter-api:5.8.2" )
-    testImplementation( "org.junit.jupiter:junit-jupiter-params:5.8.2" )
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.9.0")
     testImplementation( "org.hamcrest:hamcrest:2.2" )
-    testImplementation( "org.assertj:assertj-core:3.11.1" )
-    testRuntimeOnly( "org.junit.jupiter:junit-jupiter-engine:5.8.2" )
+    testImplementation("org.assertj:assertj-core:3.23.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.0")
 }
 
 intellij {
