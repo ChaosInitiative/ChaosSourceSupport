@@ -1,8 +1,8 @@
 plugins {
-    id("java")
-    id("org.jetbrains.kotlin.jvm") version "1.6.20"
     id("org.jetbrains.intellij") version "1.9.0"
+    kotlin("jvm") version "1.6.21"
     id("idea")
+    id("java")
 }
 
 idea {
@@ -27,7 +27,7 @@ dependencies {
 }
 
 intellij {
-    version.set( "2021.3" )
+    version.set( "2022.2" )
     type.set("IC") // Target IDE Platform
 
     plugins.set( listOf( "com.intellij.java" ) )
@@ -44,8 +44,8 @@ tasks {
     }
 
     patchPluginXml {
-        sinceBuild.set("213")
-        untilBuild.set("223.*")
+        sinceBuild.set("222")
+        untilBuild.set("240.*")
         changeNotes.set(
             """
             Add change notes here.<br>
