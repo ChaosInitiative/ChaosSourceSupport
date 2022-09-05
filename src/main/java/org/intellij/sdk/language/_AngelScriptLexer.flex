@@ -25,8 +25,8 @@ import static org.intellij.sdk.language.psi.AngelScriptElementTypes.*;
 EOL=\R
 WHITE_SPACE=\s+
 
-T_ELIF_COMMENT="#elif" !([^]* "#endif" [^]*) ("#endif")?
-T_BLOCK_COMMENT="/*" !([^]* "*/" [^]*) ("*/")?
+T_ELIF_COMMENT=#elif([^#]*|\n)
+T_BLOCK_COMMENT="/"\*(.|\n)*?\*"/"
 T_LINE_COMMENT="//".*
 T_PRE_COMMENT=#.*
 T_WHITE_SPACE=[ \t\n\x0B\f\r]+
@@ -127,6 +127,7 @@ T_STRING_BLOCK=\"\"\"(.|\n)*\"\"\"
   "&="                   { return T_BIT_AND_ASSIGN; }
   "|"                    { return T_BIT_OR; }
   "<"                    { return T_LESS; }
+  "<<"                   { return T_SHIFT_LEFT; }
   "<<="                  { return T_SHIFT_LEFT_ASSIGN; }
   "<-"                   { return T_SEND_CHANNEL; }
   "<="                   { return T_LESS_OR_EQUAL; }
@@ -140,12 +141,15 @@ T_STRING_BLOCK=\"\"\"(.|\n)*\"\"\"
   "%"                    { return T_REMAINDER; }
   "%="                   { return T_REMAINDER_ASSIGN; }
   ">"                    { return T_GREATER; }
+  ">>"                   { return T_SHIFT_RIGHT; }
   ">>="                  { return T_SHIFT_RIGHT_ASSIGN; }
+  ">>>"                  { return T_SHIFT_SHIFT_RIGHT; }
   ">="                   { return T_GREATER_OR_EQUAL; }
   ":="                   { return T_VAR_ASSIGN; }
   "."                    { return T_DOT; }
   "..."                  { return T_TRIPLE_DOT; }
   "**"                   { return T_EXPONENT; }
+  "=>"                   { return T_ARROW; }
   "and"                  { return T_AND_TEXT; }
   "or"                   { return T_OR_TEXT; }
   "xor"                  { return T_XOR_TEST; }

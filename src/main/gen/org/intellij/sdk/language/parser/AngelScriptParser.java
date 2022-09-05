@@ -1602,18 +1602,40 @@ public class AngelScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // 'function' ARGLIST STATBLOCK
+  // ( 'function' ARGLIST STATBLOCK ) | ( ARGLIST '=>' STATBLOCK )
   public static boolean LAMBDA(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "LAMBDA")) return false;
-    if (!nextTokenIs(b, T_FUNCTION)) return false;
-    boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, LAMBDA, null);
+    if (!nextTokenIs(b, "<lambda>", T_FUNCTION, T_LPAREN)) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, LAMBDA, "<lambda>");
+    r = LAMBDA_0(b, l + 1);
+    if (!r) r = LAMBDA_1(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // 'function' ARGLIST STATBLOCK
+  private static boolean LAMBDA_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "LAMBDA_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
     r = consumeToken(b, T_FUNCTION);
-    p = r; // pin = 1
-    r = r && report_error_(b, ARGLIST(b, l + 1));
-    r = p && STATBLOCK(b, l + 1) && r;
-    exit_section_(b, l, m, r, p, null);
-    return r || p;
+    r = r && ARGLIST(b, l + 1);
+    r = r && STATBLOCK(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // ARGLIST '=>' STATBLOCK
+  private static boolean LAMBDA_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "LAMBDA_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = ARGLIST(b, l + 1);
+    r = r && consumeToken(b, T_ARROW);
+    r = r && STATBLOCK(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
   }
 
   /* ********************************************************** */

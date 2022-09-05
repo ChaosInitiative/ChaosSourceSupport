@@ -71,6 +71,7 @@ public interface AngelScriptElementTypes {
 
   IElementType T_ABSTRACT = new AngelScriptTokenType("abstract");
   IElementType T_AND_TEXT = new AngelScriptTokenType("and");
+  IElementType T_ARROW = new AngelScriptTokenType("=>");
   IElementType T_ASSIGN = new AngelScriptTokenType("=");
   IElementType T_AT = new AngelScriptTokenType("@");
   IElementType T_AUTO = new AngelScriptTokenType("auto");
@@ -171,8 +172,11 @@ public interface AngelScriptElementTypes {
   IElementType T_SEMICOLON = new AngelScriptTokenType(";");
   IElementType T_SEND_CHANNEL = new AngelScriptTokenType("<-");
   IElementType T_SHARED = new AngelScriptTokenType("shared");
+  IElementType T_SHIFT_LEFT = new AngelScriptTokenType("<<");
   IElementType T_SHIFT_LEFT_ASSIGN = new AngelScriptTokenType("<<=");
+  IElementType T_SHIFT_RIGHT = new AngelScriptTokenType(">>");
   IElementType T_SHIFT_RIGHT_ASSIGN = new AngelScriptTokenType(">>=");
+  IElementType T_SHIFT_SHIFT_RIGHT = new AngelScriptTokenType(">>>");
   IElementType T_SHIFT_SHIFT_RIGHT_ASSIN = new AngelScriptTokenType(">>>=");
   IElementType T_STRING_BLOCK = new AngelScriptTokenType("t_string_block");
   IElementType T_STRING_DOUBLE = new AngelScriptTokenType("t_string_double");

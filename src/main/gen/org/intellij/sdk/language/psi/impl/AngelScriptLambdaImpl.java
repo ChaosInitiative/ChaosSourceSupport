@@ -28,15 +28,15 @@ public class AngelScriptLambdaImpl extends ASTWrapperPsiElement implements Angel
   }
 
   @Override
-  @Nullable
+  @NotNull
   public AngelScriptArglist getArglist() {
-    return findChildByClass(AngelScriptArglist.class);
+    return findNotNullChildByClass(AngelScriptArglist.class);
   }
 
   @Override
-  @Nullable
+  @NotNull
   public AngelScriptStatblock getStatblock() {
-    return findChildByClass(AngelScriptStatblock.class);
+    return findNotNullChildByClass(AngelScriptStatblock.class);
   }
 
 }

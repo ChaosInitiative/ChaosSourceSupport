@@ -7,10 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public interface AngelScriptLambda extends PsiElement {
 
-  @Nullable
+  @NotNull
   AngelScriptArglist getArglist();
 
-  @Nullable
+  @NotNull
   AngelScriptStatblock getStatblock();
 
 }
