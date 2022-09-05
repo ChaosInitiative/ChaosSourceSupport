@@ -8,9 +8,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class AngelScriptSyntaxHighlighterFactory extends SyntaxHighlighterFactory {
 
-    @NotNull
     @Override
-    public SyntaxHighlighter getSyntaxHighlighter(Project project, VirtualFile virtualFile) {
+    public @NotNull SyntaxHighlighter getSyntaxHighlighter(Project project, VirtualFile virtualFile) {
         return new AngelScriptSyntaxHighlighter();
     }
 }

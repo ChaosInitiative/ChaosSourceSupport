@@ -19,62 +19,60 @@ import org.jetbrains.annotations.NotNull;
 import static org.intellij.sdk.language.psi.AngelScriptElementTypes.*;
 
 public class AngelScriptParserDefinition implements ParserDefinition {
+	public static final TokenSet WHITE_SPACES = TokenSet.create( TokenType.WHITE_SPACE );
+	public static final TokenSet COMMENTS = TokenSet.create( T_LINE_COMMENT, T_BLOCK_COMMENT, T_PRE_COMMENT, T_ELIF_COMMENT );
 
+	public static final IFileElementType FILE = new IFileElementType( AngelScriptLanguage.INSTANCE );
 
-    public static final TokenSet WHITE_SPACES = TokenSet.create(TokenType.WHITE_SPACE);
-    public static final TokenSet COMMENTS = TokenSet.create(T_LINE_COMMENT, T_BLOCK_COMMENT, T_PRE_COMMENT, T_ELIF_COMMENT);
+	@NotNull
+	@Override
+	public Lexer createLexer( Project project ) {
+		return new AngelScriptLexerAdapter();
+	}
 
-    public static final IFileElementType FILE = new IFileElementType(AngelScriptLanguage.INSTANCE);
+	@NotNull
+	@Override
+	public TokenSet getWhitespaceTokens() {
+		return WHITE_SPACES;
+	}
 
-    @NotNull
-    @Override
-    public Lexer createLexer(Project project) {
-        return new AngelScriptLexerAdapter();
-    }
+	@NotNull
+	@Override
+	public TokenSet getCommentTokens() {
+		return COMMENTS;
+	}
 
-    @NotNull
-    @Override
-    public TokenSet getWhitespaceTokens() {
-        return WHITE_SPACES;
-    }
+	@NotNull
+	@Override
+	public TokenSet getStringLiteralElements() {
+		return TokenSet.EMPTY;
+	}
 
-    @NotNull
-    @Override
-    public TokenSet getCommentTokens() {
-        return COMMENTS;
-    }
+	@NotNull
+	@Override
+	public PsiParser createParser( final Project project ) {
+		return new AngelScriptParser();
+	}
 
-    @NotNull
-    @Override
-    public TokenSet getStringLiteralElements() {
-        return TokenSet.EMPTY;
-    }
+	@Override
+	public @NotNull IFileElementType getFileNodeType() {
+		return FILE;
+	}
 
-    @NotNull
-    @Override
-    public PsiParser createParser(final Project project) {
-        return new AngelScriptParser();
-    }
+	@Override
+	public @NotNull PsiFile createFile( @NotNull FileViewProvider viewProvider ) {
+		return new AngelScriptFile( viewProvider );
+	}
 
-    @Override
-    public IFileElementType getFileNodeType() {
-        return FILE;
-    }
+	@Override
+	public @NotNull SpaceRequirements spaceExistenceTypeBetweenTokens( ASTNode left, ASTNode right ) {
+		return SpaceRequirements.MAY;
+	}
 
-    @Override
-    public PsiFile createFile(FileViewProvider viewProvider) {
-        return new AngelScriptFile(viewProvider);
-    }
-
-    @Override
-    public SpaceRequirements spaceExistenceTypeBetweenTokens(ASTNode left, ASTNode right) {
-        return SpaceRequirements.MAY;
-    }
-
-    @NotNull
-    @Override
-    public PsiElement createElement(ASTNode node) {
-        return AngelScriptElementTypes.Factory.createElement(node);
-    }
+	@NotNull
+	@Override
+	public PsiElement createElement( ASTNode node ) {
+		return AngelScriptElementTypes.Factory.createElement( node );
+	}
 
 }

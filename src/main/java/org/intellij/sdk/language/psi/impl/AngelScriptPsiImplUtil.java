@@ -17,12 +17,12 @@ import static org.intellij.sdk.language.psi.AngelScriptElementTypes.T_IDENT;
 public class AngelScriptPsiImplUtil {
 
 
-    public static String getIdent(AngelScriptVar element) {
-        return element.getText();
-    }
+	public static String getIdent( AngelScriptVar element ) {
+		return element.getText();
+	}
 
-    public static String getName(AngelScriptVar element) {
-        return "todoname";
+	public static String getName( AngelScriptVar element ) {
+		return "todoname";
 //        Optional<AngelScriptExpr> first = element.getExprList().stream().filter(node -> node.getExprtermList().size() > 0).findFirst();
 //
 //        if (first.isEmpty()) {
@@ -39,42 +39,42 @@ public class AngelScriptPsiImplUtil {
 //        } else {
 //            return null;
 //        }
-    }
+	}
 
-     static PsiElement setName(AngelScriptVar element, String newName) {
-        ASTNode keyNode = element.getNode().findChildByType(T_IDENT);
-        if (keyNode != null) {
+	static PsiElement setName( AngelScriptVar element, String newName ) {
+		ASTNode keyNode = element.getNode().findChildByType( T_IDENT );
+		if ( keyNode != null ) {
 
-            AngelScriptIdentifier property = AngelScriptElementFactory.createIdentifier(element.getProject(), newName);
-            ASTNode newKeyNode = property.getFirstChild().getNode();
-            element.getNode().replaceChild(keyNode, newKeyNode);
-        }
-        return element;
-    }
+			AngelScriptIdentifier property = AngelScriptElementFactory.createIdentifier( element.getProject(), newName );
+			ASTNode newKeyNode = property.getFirstChild().getNode();
+			element.getNode().replaceChild( keyNode, newKeyNode );
+		}
+		return element;
+	}
 
-    public static PsiElement getNameIdentifier(AngelScriptVar element) {
-        return element;
-    }
+	public static PsiElement getNameIdentifier( AngelScriptVar element ) {
+		return element;
+	}
 
-    public static ItemPresentation getPresentation(final AngelScriptVar element) {
-        return new ItemPresentation() {
-            @Nullable
-            @Override
-            public String getPresentableText() {
-                return element.getIdent();
-            }
+	public static ItemPresentation getPresentation( final AngelScriptVar element ) {
+		return new ItemPresentation() {
+			@Nullable
+			@Override
+			public String getPresentableText() {
+				return element.getIdent();
+			}
 
-            @Nullable
-            @Override
-            public String getLocationString() {
-                PsiFile containingFile = element.getContainingFile();
-                return containingFile == null ? null : containingFile.getName();
-            }
+			@Nullable
+			@Override
+			public String getLocationString() {
+				PsiFile containingFile = element.getContainingFile();
+				return containingFile == null ? null : containingFile.getName();
+			}
 
-            @Override
-            public Icon getIcon(boolean unused) {
-                return AngelScriptIcons.FILE;
-            }
-        };
-    }
+			@Override
+			public Icon getIcon( boolean unused ) {
+				return AngelScriptIcons.FILE;
+			}
+		};
+	}
 }

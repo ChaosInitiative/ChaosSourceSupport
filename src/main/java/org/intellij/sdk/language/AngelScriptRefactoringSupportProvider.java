@@ -8,10 +8,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class AngelScriptRefactoringSupportProvider extends RefactoringSupportProvider {
-
-  @Override
-  public boolean isMemberInplaceRenameAvailable(@NotNull PsiElement elementToRename, @Nullable PsiElement context) {
-    return (elementToRename instanceof AngelScriptVar);
-  }
+	@Override
+	public boolean isMemberInplaceRenameAvailable( @NotNull PsiElement elementToRename, @Nullable PsiElement context ) {
+		return ( elementToRename instanceof AngelScriptVar );
+	}
 
 }

@@ -6,14 +6,11 @@ import org.intellij.sdk.language.psi.AngelScriptFile;
 import org.intellij.sdk.language.psi.AngelScriptIdentifier;
 
 public class AngelScriptElementFactory {
-    public static AngelScriptIdentifier createIdentifier(Project project, String name) {
-        final AngelScriptFile file = createFile(project, name);
-        return (AngelScriptIdentifier) file.getFirstChild();
-    }
+	public static AngelScriptIdentifier createIdentifier( Project project, String name ) {
+		return (AngelScriptIdentifier) createFile( project, name ).getFirstChild();
+	}
 
-    public static AngelScriptFile createFile(Project project, String text) {
-        String name = "dummy.simple";
-        return (AngelScriptFile) PsiFileFactory.getInstance(project).
-                createFileFromText(name, AngelScriptFileType.INSTANCE, text);
-    }
+	public static AngelScriptFile createFile( Project project, String text ) {
+		return (AngelScriptFile) PsiFileFactory.getInstance( project ).createFileFromText( "dummy.simple", AngelScriptFileType.INSTANCE, text );
+	}
 }

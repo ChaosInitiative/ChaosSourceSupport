@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 
 public class AngelScriptElementType extends IElementType {
-    public AngelScriptElementType(@NotNull @NonNls String debugName) {
-        super(debugName, AngelScriptLanguage.INSTANCE);
-    }
+	public AngelScriptElementType( @NotNull @NonNls String debugName ) {
+		super( debugName, AngelScriptLanguage.INSTANCE );
+	}
 }

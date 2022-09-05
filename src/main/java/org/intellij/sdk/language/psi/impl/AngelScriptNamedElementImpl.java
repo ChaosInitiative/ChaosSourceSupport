@@ -6,8 +6,7 @@ import org.intellij.sdk.language.psi.AngelScriptNamedElement;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class AngelScriptNamedElementImpl extends ASTWrapperPsiElement implements AngelScriptNamedElement {
-
-    public AngelScriptNamedElementImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+	public AngelScriptNamedElementImpl( @NotNull ASTNode node ) {
+		super( node );
+	}
 }

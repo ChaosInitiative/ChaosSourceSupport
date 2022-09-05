@@ -2,6 +2,7 @@ package org.intellij.sdk.language;
 
 import com.intellij.openapi.fileTypes.LanguageFileType;
 import com.intellij.openapi.util.NlsContexts;
+import com.intellij.openapi.util.NlsContexts.Label;
 import com.intellij.openapi.util.NlsSafe;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
@@ -9,31 +10,33 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 
+@SuppressWarnings("UnstableApiUsage")
 public class AngelScriptFileType extends LanguageFileType {
 
-    public static final AngelScriptFileType INSTANCE = new AngelScriptFileType();
+	public static final AngelScriptFileType INSTANCE = new AngelScriptFileType();
 
-    public AngelScriptFileType() {
-       super(AngelScriptLanguage.INSTANCE);
-    }
+	public AngelScriptFileType() {
+		super( AngelScriptLanguage.INSTANCE );
+	}
 
-    @Override
-    public @NonNls @NotNull String getName() {
-        return "AngelScript File";
-    }
+	@Override
+	public @NonNls @NotNull String getName() {
+		return "AngelScript File";
+	}
 
-    @Override
-    public @NlsContexts.Label @NotNull String getDescription() {
+	@Override
+	public @Label @NotNull String getDescription() {
+        //noinspection DialogTitleCapitalization
         return "AngelScript Language File";
-    }
+	}
 
-    @Override
-    public @NlsSafe @NotNull String getDefaultExtension() {
-        return "as";
-    }
+	@Override
+	public @NlsSafe @NotNull String getDefaultExtension() {
+		return "as";
+	}
 
-    @Override
-    public @Nullable Icon getIcon() {
-        return AngelScriptIcons.FILE;
-    }
+	@Override
+	public @Nullable Icon getIcon() {
+		return AngelScriptIcons.FILE;
+	}
 }

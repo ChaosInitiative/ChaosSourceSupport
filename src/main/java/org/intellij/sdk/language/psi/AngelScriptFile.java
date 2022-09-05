@@ -8,20 +8,19 @@ import org.intellij.sdk.language.AngelScriptLanguage;
 import org.jetbrains.annotations.NotNull;
 
 public class AngelScriptFile extends PsiFileBase {
+	public AngelScriptFile( @NotNull FileViewProvider viewProvider ) {
+		super( viewProvider, AngelScriptLanguage.INSTANCE );
+	}
 
-    public AngelScriptFile(@NotNull FileViewProvider viewProvider) {
-        super(viewProvider, AngelScriptLanguage.INSTANCE);
-    }
+	@NotNull
+	@Override
+	public FileType getFileType() {
+		return AngelScriptFileType.INSTANCE;
+	}
 
-    @NotNull
-    @Override
-    public FileType getFileType() {
-        return AngelScriptFileType.INSTANCE;
-    }
-
-    @Override
-    public String toString() {
-        return "AngelScript File";
-    }
+	@Override
+	public String toString() {
+		return "AngelScript File";
+	}
 
 }

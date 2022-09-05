@@ -10,26 +10,26 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @RunWith(com.intellij.testFramework.Parameterized.class)
 public class AngelScriptParserTest extends BasePlatformTestCase {
 
-    @BeforeEach
-    public void setup() throws Exception {
-        super.setUp();
-    }
+	@BeforeEach
+	public void setup() throws Exception {
+		super.setUp();
+	}
 
-    @ParameterizedTest
-    @CsvFileSource(resources = "file_names.csv")
-    public void testScriptsParse(String fileName) {
-        myFixture.configureByFile(fileName);
-        assertThat(myFixture.checkHighlighting()).isGreaterThan(0L);
-    }
+	@ParameterizedTest
+	@CsvFileSource(resources = "file_names.csv")
+	public void testScriptsParse( String fileName ) {
+		myFixture.configureByFile( fileName );
+		assertThat( myFixture.checkHighlighting() ).isGreaterThan( 0L );
+	}
 
-    @AfterEach
-    public void tearDown() throws Exception {
-        super.tearDown();
-    }
+	@AfterEach
+	public void tearDown() throws Exception {
+		super.tearDown();
+	}
 
-    @Override
-    protected String getTestDataPath() {
-        return "src/test/testData/scripts";
-    }
+	@Override
+	protected String getTestDataPath() {
+		return "src/test/testData/scripts";
+	}
 
 }
