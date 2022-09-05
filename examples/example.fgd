@@ -1,0 +1,26 @@
+@PointClass base(Targetname, Origin) studio("path/model.mdl") = example_entity : "example"
+[
+	spawnflags(flags) =
+	[
+		32 : "A flag" : 0       // 0 means the flag is not-ticked by default
+		64 : "Another flag" : 1 // 1 means the flag is ticked by default
+	]
+
+	foobarname(string) : "Name" : : "Name of foobar"
+	foobargroup(string) : "Group" : "Squad1" : "Name of foobar group"
+	foo(float) "Floating point number" : "100.7" : "Decimal points = fun"
+	something(integer) readonly: "first number" : 0 : "This is a number which can't be manually edited"
+	something2(choices) : "second number" : 0 : "Your choice of numbers!" =
+	[
+		0 : "Default"
+		1 : "Something"
+		2 : "Another Thing"
+	]
+
+	// Outputs
+	output OnSomethingHappened(void) : "Fires when something happens"
+	output OnSomethingElse(void) : "Fires when something else happens"
+
+	// Inputs
+	input DoSomething(void) : "Do something"
+]

@@ -1,0 +1,23 @@
+// both gameinfo.txt and vdf example
+"GameInfo"
+{
+	"game"		"Alien Swarm: Reactive Drop"
+	"title"		"    "	// asw - leave this blank as we have a texture logo
+	"type"		"multiplayer_only"
+	GameData	"reactivedrop.fgd"
+	InstancePath "tilegen/instances/"
+
+	SupportsDX8     0
+
+	"FileSystem"
+	{
+		"SteamAppId"	"563560"
+		"ToolsAppId"	"211"
+
+		"SearchPaths"
+		{
+			"Game"	"|gameinfo_path|."
+			"Game"	"platform"
+		}
+	}
+}
