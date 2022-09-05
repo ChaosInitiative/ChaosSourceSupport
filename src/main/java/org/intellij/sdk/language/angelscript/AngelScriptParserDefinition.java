@@ -11,7 +11,7 @@ import com.intellij.psi.PsiFile;
 import com.intellij.psi.TokenType;
 import com.intellij.psi.tree.IFileElementType;
 import com.intellij.psi.tree.TokenSet;
-import org.intellij.sdk.language.parser.AngelScriptParser;
+import org.intellij.sdk.language.angelscript.parser.AngelScriptParser;
 import org.intellij.sdk.language.angelscript.psi.AngelScriptFile;
 import org.intellij.sdk.language.angelscript.psi.AngelScriptElementTypes;
 import org.jetbrains.annotations.NotNull;

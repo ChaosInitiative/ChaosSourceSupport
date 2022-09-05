@@ -2,6 +2,7 @@ package org.intellij.sdk.language.angelscript;
 
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiFileFactory;
+import org.intellij.sdk.language.angelscript.psi.AngelScriptFile;
 import org.intellij.sdk.language.angelscript.psi.AngelScriptIdentifier;
 
 public class AngelScriptElementFactory {
