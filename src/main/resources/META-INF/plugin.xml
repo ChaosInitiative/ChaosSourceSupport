@@ -29,7 +29,7 @@
 		<!-- Add your extensions here -->
 		<fileType
 				name="AngelScript File"
-				implementationClass="org.intellij.sdk.language.angelscript.AngelScriptFileType"
+				implementationClass="org.intellij.sdk.lang.angelscript.AngelScriptFileType"
 				fieldName="INSTANCE"
 				language="AngelScript"
 				extensions="as"
@@ -37,24 +37,24 @@
 
 		<completion.contributor
 				language="AngelScript"
-				implementationClass="org.intellij.sdk.language.angelscript.AngelScriptCompletionContributor"
+				implementationClass="org.intellij.sdk.lang.angelscript.AngelScriptCompletionContributor"
 		/>
 
 		<lang.parserDefinition
 				language="AngelScript"
-				implementationClass="org.intellij.sdk.language.angelscript.AngelScriptParserDefinition"
+				implementationClass="org.intellij.sdk.lang.angelscript.AngelScriptParserDefinition"
 		/>
 		<lang.syntaxHighlighterFactory
 				language="AngelScript"
-				implementationClass="org.intellij.sdk.language.angelscript.AngelScriptSyntaxHighlighterFactory"
+				implementationClass="org.intellij.sdk.lang.angelscript.AngelScriptSyntaxHighlighterFactory"
 		/>
 		<lang.refactoringSupport
 				language="AngelScript"
-				implementationClass="org.intellij.sdk.language.angelscript.AngelScriptRefactoringSupportProvider"
+				implementationClass="org.intellij.sdk.lang.angelscript.AngelScriptRefactoringSupportProvider"
 		/>
-		<!--        <psi.referenceContributor language="AngelScript" implementation="org.intellij.sdk.language.AngelScriptReferenceContributor"/>-->
-		<gotoSymbolContributor implementation="org.intellij.sdk.language.angelscript.AngelScriptChooseByNameContributor"/>
-		<colorSettingsPage implementation="org.intellij.sdk.language.angelscript.AngelScriptColorSettingsPage"/>
+		<!--        <psi.referenceContributor language="AngelScript" implementation="org.intellij.sdk.lang.AngelScriptReferenceContributor"/>-->
+		<gotoSymbolContributor implementation="org.intellij.sdk.lang.angelscript.AngelScriptChooseByNameContributor"/>
+		<colorSettingsPage implementation="org.intellij.sdk.lang.angelscript.AngelScriptColorSettingsPage"/>
 	</extensions>
 
 	<actions>
