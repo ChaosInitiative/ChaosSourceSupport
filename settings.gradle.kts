@@ -1,2 +1,1 @@
-rootProject.name = "chaos-source-support"
-
+rootProject.name = "ChaosSourceSupport"
