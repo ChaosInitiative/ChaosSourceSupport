@@ -1,5 +1,5 @@
 <idea-plugin>
-	<id>com.enderzombi102.chaossourcesupport</id>
+	<id>com.enderzombi102.css</id>
 	<name>Chaos Source Support</name>
 	<vendor email="enderzombi102.end@gmail.com" url="https://github.com/ENDERZOMBI102/ChaosSourceSupport">
 		ENDERZOMBI102
@@ -29,7 +29,7 @@
 		<!-- Add your extensions here -->
 		<fileType
 				name="AngelScript File"
-				implementationClass="org.intellij.sdk.lang.angelscript.AngelScriptFileType"
+				implementationClass="com.enderzombi102.css.lang.angelscript.AngelScriptFileType"
 				fieldName="INSTANCE"
 				language="AngelScript"
 				extensions="as"
@@ -37,24 +37,24 @@
 
 		<completion.contributor
 				language="AngelScript"
-				implementationClass="org.intellij.sdk.lang.angelscript.AngelScriptCompletionContributor"
+				implementationClass="com.enderzombi102.css.lang.angelscript.AngelScriptCompletionContributor"
 		/>
 
 		<lang.parserDefinition
 				language="AngelScript"
-				implementationClass="org.intellij.sdk.lang.angelscript.AngelScriptParserDefinition"
+				implementationClass="com.enderzombi102.css.lang.angelscript.AngelScriptParserDefinition"
 		/>
 		<lang.syntaxHighlighterFactory
 				language="AngelScript"
-				implementationClass="org.intellij.sdk.lang.angelscript.AngelScriptSyntaxHighlighterFactory"
+				implementationClass="com.enderzombi102.css.lang.angelscript.AngelScriptSyntaxHighlighterFactory"
 		/>
 		<lang.refactoringSupport
 				language="AngelScript"
-				implementationClass="org.intellij.sdk.lang.angelscript.AngelScriptRefactoringSupportProvider"
+				implementationClass="com.enderzombi102.css.lang.angelscript.AngelScriptRefactoringSupportProvider"
 		/>
 		<!--        <psi.referenceContributor language="AngelScript" implementation="org.intellij.sdk.lang.AngelScriptReferenceContributor"/>-->
-		<gotoSymbolContributor implementation="org.intellij.sdk.lang.angelscript.AngelScriptChooseByNameContributor"/>
-		<colorSettingsPage implementation="org.intellij.sdk.lang.angelscript.AngelScriptColorSettingsPage"/>
+		<gotoSymbolContributor implementation="com.enderzombi102.css.lang.angelscript.AngelScriptChooseByNameContributor"/>
+		<colorSettingsPage implementation="com.enderzombi102.css.lang.angelscript.AngelScriptColorSettingsPage"/>
 	</extensions>
 
 	<actions>
