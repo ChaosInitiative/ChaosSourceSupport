@@ -103,9 +103,10 @@
 		// endregion OTHER TOKENS
 
 		t_WHITE_SPACE          = 'regexp:\s+'
+		t_NEWLINE          = 'regexp:\R+'
 
-		t_ident                = 'regexp:([a-zA-Z_]+[a-zA-Z_0-9]*)' // _hello_w0rld
-		t_integer              = "regexp:((0x[0-9A-Fa-f])|[0-9]+|(0[0-7+])|'.')" // 34 | 0xFF00A120 | 0753 | 'a'
+		t_ident                = 'regexp:([a-zA-Z_][a-zA-Z_0-9]*)' // _hello_w0rld
+		t_integer              = "regexp:((0x[0-9A-Fa-f]+)|[1-9][0-9]*|(0[0-7]+)|0|'.')" // 34 | 0xFF00A120 | 0753 | 0 | 'a'
 		t_float                = 'regexp:([0-9]+\.([e|E][+|\-]?)?[0-9]+)' // 1.52 | 1.e2 | 1.e-2
 
 		t_string               = 'regexp:"([^"\\]|\\.)*"' // "string"
@@ -113,57 +114,61 @@
 	]
 }
 
-SCRIPT       ::= ( STATEMENTS | ';' )* { recoverWhile = script_recover }
+SCRIPT        ::= STATEMENTS { recoverWhile = script_recover }
 private script_recover ::= !(';')
 
 IDENTIFIER    ::= t_ident
-DEREFEXPR      ::= ( IDENTIFIER ) // FIXME: The `EXP` HERE CAUSES LEFT RECURSION ( INFINITE LOOP )
-EXPR          ::= ( ( '::' IDENTIFIER ) | IDENTIFIER | PRIMITIVE | ASSIGNMENT | NEWSLOT | TERNARY | INSTANCEOFOP | TYEOFOP | TABLE_DECL | DELEGATE | CLONE | ARRAY | DELETE | CALL | UNARY | BINARY )
-STATEMENTS    ::= STATEMENT ( ';' | '\n' ) // the `STATS?` was removed, is it necessary?
-STATEMENT     ::= ( BLOCK | IFELSE | WHILE | DOWHILE | SWITCH | FOR | FOREACH | 'break' | 'continue' | RETURN | YIELD | LOCAL_DECL | FUNC_DECL | CLASS_DECL | TRYCATCH | THROW | CONST | ENUM | EXPR )
-BLOCK         ::= '{' STATEMENTS* '}'
-IFELSE        ::= 'if' '(' EXPR ')' STATEMENT ( 'else' STATEMENT )?
-WHILE         ::= 'while' '(' EXPR ')' STATEMENT
-DOWHILE       ::= 'do' STATEMENT 'while' '(' EXPR ')'
-SWITCH        ::= 'switch' '(' EXPR ')' '{' CASE* '}'
-CASE          ::= ( ('case' EXPR) | 'default' ) ':' STATEMENT*
-FOR           ::= 'for' '(' EXPR? ';' EXPR? ';' EXPR? ')' STATEMENT
-FOREACH       ::= 'foreach' '(' ( IDENTIFIER ',' )? IDENTIFIER 'in' EXPR ')' STATEMENT
+DEREF_EXPR    ::= ( IDENTIFIER | '::' IDENTIFIER | DEREF_EXPR '.' IDENTIFIER ) {extends BINARY}
+STATEMENT     ::= ( BLOCK | IFELSE | WHILE | DOWHILE | SWITCH | FOR | FOREACH | 'break' | 'continue' | RETURN | YIELD | LOCAL_DECL | FUNC_DECL | CLASS_DECL | TRYCATCH | THROW | CONST | ENUM | BINARY )
+STATEMENTS    ::= ( STATEMENT ( ';' | '\n' ) )* STATEMENT?
+BLOCK         ::= '{' STATEMENTS? '}'
+IFELSE        ::= 'if' GROUPED STATEMENT ( 'else' STATEMENT )?
+WHILE         ::= 'while' GROUPED STATEMENT
+DOWHILE       ::= 'do' STATEMENT 'while' '(' BINARY ')'
+SWITCH        ::= 'switch' GROUPED '{' CASE* '}'
+CASE          ::= ( ( 'case' BINARY ) | 'default' ) ':' STATEMENT*
+FOR           ::= 'for' '(' BINARY? ';' BINARY? ';' BINARY? ')' STATEMENT
+FOREACH       ::= 'foreach' '(' ( IDENTIFIER ',' )? IDENTIFIER 'in' BINARY ')' STATEMENT
 // BREAK      ::= 'break'
 // CONTINUE   ::= 'continue'
-RETURN        ::= 'return' EXPR?
-YIELD         ::= 'yield' EXPR?
-INITZ         ::= IDENTIFIER ( '=' EXPR )? ( ',' INITZ )?
+RETURN        ::= 'return' BINARY?
+YIELD         ::= 'yield' BINARY?
+INITZ         ::= IDENTIFIER ( '=' BINARY )? ( ',' INITZ )?
 LOCAL_DECL    ::= 'local' INITZ
 ARGS          ::= ( IDENTIFIER ( ',' IDENTIFIER )* )?
-FUNCNAME      ::= IDENTIFIER ( '::' IDENTIFIER )?
-FUNC_DECL     ::= 'function' IDENTIFIER ( '::' IDENTIFIER )* '(' ARGS (',' '...')? ')' ( ':' '(' ARGS ')' )? STATEMENT
-MEMBERDECL    ::= ( IDENTIFIER '=' EXPR ';'? | '[' EXPR ']' '=' EXPR ';'? | FUNCTIONSTAT | 'constructor' FUNCTIONEXP )
-CLASS_DECL    ::= 'class' DEREFEXPR ( 'extends' DEREFEXPR )? '{' MEMBERDECL? '}'
+FUNC_NAME     ::= IDENTIFIER ( '::' IDENTIFIER )?
+FUNC_DECL     ::= 'function' FUNC_NAME FUNC_EXPR
+FUNC_EXPR     ::= ( '::' IDENTIFIER )* '(' ARGS (',' '...')? ')' ( ':' '(' ARGS ')' )? STATEMENT
+MEMBER_DECL   ::= ( IDENTIFIER '=' BINARY ';'? | '[' BINARY ']' '=' BINARY ';'? | FUNC_DECL | 'constructor' FUNC_EXPR )
+CLASS_DECL    ::= 'class' DEREF_EXPR ( 'extends' DEREF_EXPR )? '{' MEMBER_DECL* '}'
 TRYCATCH      ::= 'try' STATEMENT 'catch' '(' IDENTIFIER ')' STATEMENT
-THROW         ::= 'throw' EXPR
+THROW         ::= 'throw' BINARY
 CONST         ::= 'const' IDENTIFIER '=' PRIMITIVE
 ENUM_VALUE    ::= ( IDENTIFIER '=' PRIMITIVE ) ','?
 ENUM          ::= 'enum' IDENTIFIER '{' ENUM_VALUE '}'
-ASSIGNMENT    ::= DEREFEXPR '=' EXPR
-NEWSLOT       ::= DEREFEXPR '<-' EXPR
-MATH_OP       ::= ( '+' | '-' '*' | '/' | '%' )
-COMPQ_OP      ::= ( '+=' | '-=' | '*=' | '/=' | '%=' )
-REL_OP        ::= ( ':' | '==' | '<' | '<=' | '>' | '>=' | '!=' )
-LOGI_OP       ::= ( ':' | '&&' | '||' )
-BITWISE_OP    ::= ( '&' | '|' | '^' | '<<' | '>>' | '>>>' )
-TYEOFOP       ::= 'typeof' EXPR
-TSLOTS        ::= ( IDENTIFIER '=' EXPR | '[' EXPR ']' '=' EXPR ) ','?
-TABLE_DECL    ::= '{' TSLOTS* '}'
-DELEGATE      ::= 'delegate' EXPR ':' EXPR
-CLONE         ::= 'clone' EXPR
-ARRAY         ::= '[' EXPRLIST? ']'
-EXPRLIST      ::= EXPR? ( ',' EXPR )*
-DELETE        ::= 'delete' DEREFEXPR
-CALL          ::= DEREFEXPR '(' EXPR* ')'
-UNARY_OP      ::= ( '~' | '!' )
-UNARY         ::= ( UNARY_OP EXPR )
-BINARY_OP     ::= ( MATH_OP | COMPQ_OP | REL_OP | LOGI_OP | BITWISE_OP | 'in' | 'instanceof' )
-BINARY        ::= EXPR BINARY_OP EXPR {extends EXPR}
-TERNARY       ::= EXPR '?' EXPR ':' EXPR
 PRIMITIVE     ::= ( t_integer | t_float | t_string | t_string_block )
+GROUPED       ::= '(' BINARY ')'
+
+BINARY          ::= EXPR_TERM ( BINARY_OP EXPR_TERM )
+EXPR_TERM     ::= ( ( DEREF_EXPR ( '=' | '<-' ) )? INITLIST ) | ( ( UNARY_OP )* EXPR_VALUE )
+EXPR_VALUE    ::= CALL | DEREF_EXPR | PRIMITIVE | '(' ASSIGN ')'
+ASSIGN        ::= CONDITION ( ASSIGN_OP ASSIGN )?
+CONDITION     ::= BINARY ( '?' ASSIGN ':' ASSIGN )
+
+BINARY_OP     ::= ( MATH_OP | REL_OP | LOGI_OP | BITWISE_OP | 'in' | 'instanceof' )
+REL_OP        ::= ( ':' | '==' | '<' | '<=' | '>' | '>=' | '!=' )
+ASSIGN_OP     ::= ( '=' | '+=' | '-=' | '*=' | '/=' | '%=' )
+BITWISE_OP    ::= ( '&' | '|' | '^' | '<<' | '>>' | '>>>' )
+LOGI_OP       ::= ( ':' | '&&' | '||' )
+// FIXME: Add operator priority and expr priority somehow
+MATH_OP       ::= ( '/' | '*' | '%' | '+' | '-' )
+UNARY_OP      ::= ( '-' | '~' | '!' | 'typeof' | '++' | '--' ) // HIGHEST PRIORITY
+TSLOTS        ::= ( IDENTIFIER '=' BINARY | '[' BINARY ']' '=' BINARY ) ','?
+TABLE_DECL    ::= '{' TSLOTS* '}'
+ARRAY         ::= '[' EXPRLIST? ']'
+EXPRLIST      ::= BINARY ( ',' BINARY )*
+DELEGATE      ::= 'delegate' BINARY ':' BINARY
+CLONE         ::= 'clone' BINARY
+DELETE        ::= 'delete' DEREF_EXPR
+CALL          ::= DEREF_EXPR '(' BINARY* ')'
+UNARY         ::= UNARY_OP BINARY
