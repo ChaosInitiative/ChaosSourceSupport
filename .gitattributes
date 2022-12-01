@@ -10,8 +10,11 @@
 *.yml text eol=lf
 *.bat text eol=crlf
 *.kts text eol=lf
+*.csv text eol=lf
 *.kt text eol=lf
 *.md text eol=lf
+*.as text eol=lf
+*.sh text eol=lf
 .gitattributes text eol=lf
 .gitignore text eol=lf
 LICENSE text eol=lf

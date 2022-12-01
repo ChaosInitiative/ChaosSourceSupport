@@ -175,10 +175,10 @@ VAR           ::= ('private'|'protected')? TYPE IDENTIFIER (( '=' (INITLIST | CO
 	mixin="com.enderzombi102.css.lang.angelscript.psi.impl.AngelScriptNamedElementImpl"
 	implements="com.enderzombi102.css.lang.angelscript.psi.AngelScriptNamedElement"
 	methods=[getIdent getName setName getNameIdentifier getPresentation]
-	//  pin=5
-	// recoverWhile="var_recover"
+//	  pin=5
+//	 recoverWhile="var_recover"
 }
-private var_recover ::= !(';' | TYPE)
+//private var_recover ::= !(';' | TYPE)
 IMPORT        ::= 'import' TYPE '&'? IDENTIFIER PARAMLIST FUNCATTR 'from' STRING ';' {pin=1}
 ENUM          ::= ('shared' | 'external')* 'enum' IDENTIFIER (';' | ('{' (IDENTIFIER ('=' EXPR)? (',' IDENTIFIER ('=' EXPR)?)* ',' ?)? '}')) {pin=2}
 FUNCDEF       ::= ('external' | 'shared')* 'funcdef' TYPE '&'? IDENTIFIER PARAMLIST ';' {pin=2}
