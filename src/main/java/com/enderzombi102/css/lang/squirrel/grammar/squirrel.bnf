@@ -63,9 +63,10 @@
 		t_COND_OR              = '||'
 		t_EQ                   = '=='
 		t_COND_AND             = '&&'
+		t_LESS                 = '<'
 		t_LESS_OR_EQUAL        = '<='
-		t_GREATER_OR_EQUAL     = '=>'
-		t_                     = '>'
+		t_GREATER              = '>'
+		t_GREATER_OR_EQUAL     = '>='
 		t_PLUS                 = '+'
 		t_PLUS_ASSIGN          = '+='
 		t_MINUS                = '-'
@@ -94,10 +95,15 @@
 		t_RBRACE               = '}'
 		t_LBRACK               = '['
 		t_RBRACK               = ']'
+		t_LPAREN               = '('
+		t_RPAREN               = ')'
+		t_COMMA                = ','
 		t_DOT 				   = '.'
+		t_DOTDOTDOT 		   = '...'
 		t_COLON				   = ':'
 		t_COLONCOLON		   = '::'
 		t_SEMICOLON			   = ';'
+		t_QUESTION			   = '?'
 		t_DQUOTE			   = '"'
 		t_AT_DQUOTE			   = '@"'
 		// endregion OTHER TOKENS
@@ -114,61 +120,65 @@
 	]
 }
 
-SCRIPT        ::= STATEMENTS { recoverWhile = script_recover }
-private script_recover ::= !(';')
+STATEMENTS    ::= ( STATEMENT ( ';' | t_NEWLINE ) )* STATEMENT?  { recoverWhile = statements_recover }
+private statements_recover ::= !( ';' | t_NEWLINE )
 
 IDENTIFIER    ::= t_ident
-DEREF_EXPR    ::= ( IDENTIFIER | '::' IDENTIFIER | DEREF_EXPR '.' IDENTIFIER ) {extends BINARY}
-STATEMENT     ::= ( BLOCK | IFELSE | WHILE | DOWHILE | SWITCH | FOR | FOREACH | 'break' | 'continue' | RETURN | YIELD | LOCAL_DECL | FUNC_DECL | CLASS_DECL | TRYCATCH | THROW | CONST | ENUM | BINARY )
-STATEMENTS    ::= ( STATEMENT ( ';' | '\n' ) )* STATEMENT?
+DEREF_EXPR    ::= ( IDENTIFIER ( '.' IDENTIFIER )* | '::' IDENTIFIER )
+STATEMENT     ::= ( BLOCK | IFELSE | WHILE | DOWHILE | SWITCH | FOR | FOREACH | 'break' | 'continue' | RETURN | YIELD | LOCAL_DECL | FUNC_DECL | CLASS_DECL | TRYCATCH | THROW | CONST | ENUM | EXPR )
 BLOCK         ::= '{' STATEMENTS? '}'
-IFELSE        ::= 'if' GROUPED STATEMENT ( 'else' STATEMENT )?
-WHILE         ::= 'while' GROUPED STATEMENT
-DOWHILE       ::= 'do' STATEMENT 'while' '(' BINARY ')'
-SWITCH        ::= 'switch' GROUPED '{' CASE* '}'
-CASE          ::= ( ( 'case' BINARY ) | 'default' ) ':' STATEMENT*
-FOR           ::= 'for' '(' BINARY? ';' BINARY? ';' BINARY? ')' STATEMENT
-FOREACH       ::= 'foreach' '(' ( IDENTIFIER ',' )? IDENTIFIER 'in' BINARY ')' STATEMENT
-// BREAK      ::= 'break'
-// CONTINUE   ::= 'continue'
-RETURN        ::= 'return' BINARY?
-YIELD         ::= 'yield' BINARY?
-INITZ         ::= IDENTIFIER ( '=' BINARY )? ( ',' INITZ )?
+IFELSE        ::= 'if' EXPR_GROUPED STATEMENT ( 'else' STATEMENT )?
+WHILE         ::= 'while' EXPR_GROUPED STATEMENT
+DOWHILE       ::= 'do' STATEMENT 'while' EXPR_GROUPED
+SWITCH        ::= 'switch' EXPR_GROUPED '{' CASE* '}'
+CASE          ::= ( ( 'case' EXPR ) | 'default' ) ':' STATEMENT*
+FOR           ::= 'for' '(' EXPR? ';' EXPR? ';' EXPR? ')' STATEMENT
+FOREACH       ::= 'foreach' '(' ( IDENTIFIER ',' )? IDENTIFIER 'in' EXPR ')' STATEMENT
+RETURN        ::= 'return' EXPR?
+YIELD         ::= 'yield' EXPR?
+INITZ         ::= IDENTIFIER ( '=' EXPR )? ( ',' INITZ )?
 LOCAL_DECL    ::= 'local' INITZ
 ARGS          ::= ( IDENTIFIER ( ',' IDENTIFIER )* )?
-FUNC_NAME     ::= IDENTIFIER ( '::' IDENTIFIER )?
-FUNC_DECL     ::= 'function' FUNC_NAME FUNC_EXPR
-FUNC_EXPR     ::= ( '::' IDENTIFIER )* '(' ARGS (',' '...')? ')' ( ':' '(' ARGS ')' )? STATEMENT
-MEMBER_DECL   ::= ( IDENTIFIER '=' BINARY ';'? | '[' BINARY ']' '=' BINARY ';'? | FUNC_DECL | 'constructor' FUNC_EXPR )
+FUNC_NAME     ::= IDENTIFIER ( '::' IDENTIFIER )*
+FUNC_DECL     ::= 'function' FUNC_NAME FUNC_BODY
+FUNC_EXPR     ::= 'function' FUNC_BODY
+FUNC_BODY     ::= '(' ARGS (',' '...')? ')' ( ':' '(' ARGS ')' )? STATEMENT
+MEMBER_DECL   ::= ( IDENTIFIER '=' EXPR ';'? | '[' EXPR ']' '=' EXPR ';'? | FUNC_DECL | 'constructor' FUNC_EXPR )
 CLASS_DECL    ::= 'class' DEREF_EXPR ( 'extends' DEREF_EXPR )? '{' MEMBER_DECL* '}'
+CLASS_EXPR    ::= 'class' ( 'extends' DEREF_EXPR )? '{' MEMBER_DECL* '}'
 TRYCATCH      ::= 'try' STATEMENT 'catch' '(' IDENTIFIER ')' STATEMENT
-THROW         ::= 'throw' BINARY
+THROW         ::= 'throw' EXPR
 CONST         ::= 'const' IDENTIFIER '=' PRIMITIVE
 ENUM_VALUE    ::= ( IDENTIFIER '=' PRIMITIVE ) ','?
 ENUM          ::= 'enum' IDENTIFIER '{' ENUM_VALUE '}'
 PRIMITIVE     ::= ( t_integer | t_float | t_string | t_string_block )
-GROUPED       ::= '(' BINARY ')'
 
-BINARY          ::= EXPR_TERM ( BINARY_OP EXPR_TERM )
-EXPR_TERM     ::= ( ( DEREF_EXPR ( '=' | '<-' ) )? INITLIST ) | ( ( UNARY_OP )* EXPR_VALUE )
-EXPR_VALUE    ::= CALL | DEREF_EXPR | PRIMITIVE | '(' ASSIGN ')'
-ASSIGN        ::= CONDITION ( ASSIGN_OP ASSIGN )?
-CONDITION     ::= BINARY ( '?' ASSIGN ':' ASSIGN )
+EXPR          ::= ( EXPR_COMMA | DELETE | CLONE | DELEGATE )
+EXPR_COMMA    ::= EXPR_ASSIGN ( ',' EXPR )?  // least priority
+EXPR_ASSIGN   ::= ( DEREF_EXPR ( '=' | '<-' ) )? EXPR_TERNARY
+EXPR_TERNARY  ::= EXPR_OR ( '?' EXPR ':' EXPR )
+EXPR_OR       ::= EXPR_AND_IN ( '||' EXPR )?
+EXPR_AND_IN   ::= EXPR_BIN_OR ( ( '&&' | 'in' ) EXPR )?
+EXPR_BIN_OR   ::= EXPR_BIN_XOR ( '|' EXPR )?
+EXPR_BIN_XOR  ::= EXPR_BIN_AND ( '^' EXPR )?
+EXPR_BIN_AND  ::= EXPR_EQ_NEQ ( '&' EXPR )?
+EXPR_EQ_NEQ   ::= EXPR_COMPAR ( ( '==' | '!=' | 'instanceof' ) EXPR )?
+EXPR_COMPAR   ::= EXPR_SHIFT ( ( '<' | '<=' | '>' | '>=' ) EXPR )?
+EXPR_SHIFT    ::= EXPR_TERM ( ( '<<' | '>>' | '>>>' ) EXPR )?
+EXPR_TERM     ::= EXPR_FACTOR ( ( '+' | '-' ) EXPR )?
+EXPR_FACTOR   ::= EXPR_UNARY ( ( '/' | '*' | '%' ) EXPR )?
+EXPR_UNARY    ::= ( '-' | '~' | '!' | 'typeof' | '++' | '--' )? EXPR_ACCESS
+EXPR_ACCESS   ::= EXPR_PRIMARY ( '.' EXPR_ACCESS )? // max priority
+EXPR_PRIMARY  ::= EXPR_GROUPED | EXPR_CALL | PRIMITIVE | TABLE_DECL | ARRAY | FUNC_EXPR | CLASS_EXPR | DEREF_EXPR
+EXPR_CALL     ::= DEREF_EXPR '(' EXPR_LIST? ')'
 
-BINARY_OP     ::= ( MATH_OP | REL_OP | LOGI_OP | BITWISE_OP | 'in' | 'instanceof' )
-REL_OP        ::= ( ':' | '==' | '<' | '<=' | '>' | '>=' | '!=' )
-ASSIGN_OP     ::= ( '=' | '+=' | '-=' | '*=' | '/=' | '%=' )
-BITWISE_OP    ::= ( '&' | '|' | '^' | '<<' | '>>' | '>>>' )
-LOGI_OP       ::= ( ':' | '&&' | '||' )
-// FIXME: Add operator priority and expr priority somehow
-MATH_OP       ::= ( '/' | '*' | '%' | '+' | '-' )
-UNARY_OP      ::= ( '-' | '~' | '!' | 'typeof' | '++' | '--' ) // HIGHEST PRIORITY
-TSLOTS        ::= ( IDENTIFIER '=' BINARY | '[' BINARY ']' '=' BINARY ) ','?
+EXPR_GROUPED  ::= '(' EXPR ')'
+EXPR_LIST     ::= EXPR ( ',' EXPR )*
+ARRAY         ::= '[' EXPR_LIST? ']'
+TSLOTS        ::= ( IDENTIFIER '=' EXPR | '[' EXPR ']' '=' EXPR ) ','?
 TABLE_DECL    ::= '{' TSLOTS* '}'
-ARRAY         ::= '[' EXPRLIST? ']'
-EXPRLIST      ::= BINARY ( ',' BINARY )*
-DELEGATE      ::= 'delegate' BINARY ':' BINARY
-CLONE         ::= 'clone' BINARY
+
+DELEGATE      ::= 'delegate' EXPR ':' EXPR
+CLONE         ::= 'clone' EXPR
 DELETE        ::= 'delete' DEREF_EXPR
-CALL          ::= DEREF_EXPR '(' BINARY* ')'
-UNARY         ::= UNARY_OP BINARY
+
