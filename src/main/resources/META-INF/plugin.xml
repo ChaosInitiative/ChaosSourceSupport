@@ -10,12 +10,12 @@
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque mollis vitae metus facilisis ullamcorper. Nulla ultricies eros sit amet mattis consectetur. In blandit malesuada leo, quis pellentesque ex auctor vitae. Integer convallis leo nec dictum commodo. Nunc feugiat laoreet lorem.
 	</description>
 
-	<change-notes>
-        <!--TODO: Add changelog from file instead of hardcoding it here-->
-	</change-notes>
+	<change-notes />
 
 	<!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html on how to target different products -->
 	<depends>com.intellij.modules.platform</depends>
+	<depends>com.intellij.modules.xml</depends>
+    <!--TODO: Depend on js and intellilang-->
 
 	<extensions defaultExtensionNs="com.intellij">
 		<!-- region angelscript -->
