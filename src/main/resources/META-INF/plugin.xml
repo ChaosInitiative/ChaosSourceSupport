@@ -13,18 +13,15 @@
 	<change-notes />
 
 	<!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
-	<depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.xdebugger</depends>
+    <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.modules.lang</depends>
     <depends>com.intellij.modules.xml</depends>
     <!--optional integrations-->
-<!--    <depends optional="true" config-file="css-integration-plugin.xml">com.intellij.css</depends>-->
-<!--    <depends optional="true" config-file="cpp-integration-plugin.xml">com.intellij.cidr.base</depends>-->
-<!--    <depends optional="true" config-file="intellilang-integration-plugin.xml">org.intellij.intelliLang</depends>-->
+    <depends optional="true" config-file="css-integration-plugin.xml">com.intellij.css</depends>
+    <depends optional="true" config-file="cpp-integration-plugin.xml">com.intellij.cidr.base</depends>
+    <depends optional="true" config-file="intellilang-integration-plugin.xml">org.intellij.intelliLang</depends>
     <!--TODO: Depend on js and intellilang-->
-
-    <dependencies>
-<!--        <plugin id="org.intellij.css" />-->
-    </dependencies>
 
 	<extensions defaultExtensionNs="com.intellij">
 		<!-- region angelscript -->

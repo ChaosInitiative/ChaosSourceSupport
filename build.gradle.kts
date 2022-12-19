@@ -21,15 +21,14 @@ dependencies {
 
 intellij {
     version.set( "2022.2" )
-    type.set("IC") // Target IDE Platform
+    type.set("CL") // Target IDE Platform
 
     plugins.addAll(
-//		"com.intellij.cidr.base", // c/c++ support ( handle AS/Sq integration and actions )
-//		"com.intellij.modules.xdebugger", // angelscript/squirrel debugging
-//		"com.intellij.css", // panorama css support
-//		"JavaScript", // panorama js support
-//		"Rider UI Theme Pack:0.10.3", // because ender hates the default look
-//		"org.intellij.intelliLang" // language injections
+		"com.intellij.cidr.base", // c/c++ support ( handle AS/Sq integration and actions )
+		"com.intellij.css", // panorama css support ( needs commercial IDE )
+		"JavaScriptLanguage", // panorama js support ( needs commercial IDE )
+		"Rider UI Theme Pack:0.10.3", // because ender hates the default look
+		"org.intellij.intelliLang" // language injections
 	)
 }
 
