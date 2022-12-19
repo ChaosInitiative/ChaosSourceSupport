@@ -12,11 +12,15 @@ class AngelScriptReference(element: PsiElement) : PsiReferenceBase<PsiElement>(e
 
 	override fun multiResolve( incompleteCode: Boolean ) = buildList {
 		for ( variable in AngelScriptUtil.findVars(myElement!!.project, key))
-			add( PsiElementResolveResult( variable!! ) )
+			add( PsiElementResolveResult( variable ) )
 	}.toTypedArray()
 
-	override fun resolve() =
-		multiResolve( false ).run { if ( size == 1 ) this[0].element else null }
+	override fun resolve() = multiResolve( false ).run {
+		if ( size == 1 )
+			this[0].element
+		else
+			null
+	}
 
 	override fun getVariants() = buildList {
 		for ( scriptVar in AngelScriptUtil.findVars(myElement!!.project)) {

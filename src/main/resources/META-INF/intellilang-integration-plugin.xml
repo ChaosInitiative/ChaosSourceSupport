@@ -1,0 +1,6 @@
+<idea-plugin package="com.enderzombi102.css.support.intellilang">
+
+    <extensions defaultExtensionNs="org.intellij.intelliLang">
+    </extensions>
+
+</idea-plugin>

@@ -23,7 +23,14 @@ intellij {
     version.set( "2022.2" )
     type.set("IC") // Target IDE Platform
 
-    plugins.set( listOf( "com.intellij.java" ) )
+    plugins.addAll(
+//		"com.intellij.cidr.base", // c/c++ support ( handle AS/Sq integration and actions )
+//		"com.intellij.modules.xdebugger", // angelscript/squirrel debugging
+//		"com.intellij.css", // panorama css support
+//		"JavaScript", // panorama js support
+//		"Rider UI Theme Pack:0.10.3", // because ender hates the default look
+//		"org.intellij.intelliLang" // language injections
+	)
 }
 
 tasks {
