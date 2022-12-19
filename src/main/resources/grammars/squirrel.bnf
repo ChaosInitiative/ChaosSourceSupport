@@ -1,3 +1,4 @@
+//noinspection BnfSuspiciousTokenForFile
 {
 	parserClass="com.enderzombi102.css.lang.squirrel.parser.SquirrelParser"
 	parserUtilClass="com.enderzombi102.css.lang.squirrel.parser.SquirrelParserUtil"
@@ -120,13 +121,13 @@
 	]
 }
 
-STATEMENTS    ::= ( STATEMENT ( ';' | t_NEWLINE ) )* STATEMENT?  { recoverWhile = statements_recover }
-private statements_recover ::= !( ';' | t_NEWLINE )
+STATEMENTS    ::= ( STATEMENT ( ';' | t_NEWLINE ) )* STATEMENT? { recoverWhile = statements_recover }
+private statements_recover ::= !( ';' | t_NEWLINE | '}' )
 
 IDENTIFIER    ::= t_ident
 DEREF_EXPR    ::= ( IDENTIFIER ( '.' IDENTIFIER )* | '::' IDENTIFIER )
 STATEMENT     ::= ( BLOCK | IFELSE | WHILE | DOWHILE | SWITCH | FOR | FOREACH | 'break' | 'continue' | RETURN | YIELD | LOCAL_DECL | FUNC_DECL | CLASS_DECL | TRYCATCH | THROW | CONST | ENUM | EXPR )
-BLOCK         ::= '{' STATEMENTS? '}'
+BLOCK         ::= '{' ( STATEMENT ( ';' | t_NEWLINE ) )* STATEMENT? '}' { recoverWhile = statements_recover }
 IFELSE        ::= 'if' EXPR_GROUPED STATEMENT ( 'else' STATEMENT )?
 WHILE         ::= 'while' EXPR_GROUPED STATEMENT
 DOWHILE       ::= 'do' STATEMENT 'while' EXPR_GROUPED
@@ -150,7 +151,7 @@ TRYCATCH      ::= 'try' STATEMENT 'catch' '(' IDENTIFIER ')' STATEMENT
 THROW         ::= 'throw' EXPR
 CONST         ::= 'const' IDENTIFIER '=' PRIMITIVE
 ENUM_VALUE    ::= ( IDENTIFIER '=' PRIMITIVE ) ','?
-ENUM          ::= 'enum' IDENTIFIER '{' ENUM_VALUE '}'
+ENUM          ::= 'enum' IDENTIFIER '{' ENUM_VALUE* '}'
 PRIMITIVE     ::= ( t_integer | t_float | t_string | t_string_block )
 
 EXPR          ::= ( EXPR_COMMA | DELETE | CLONE | DELEGATE )
