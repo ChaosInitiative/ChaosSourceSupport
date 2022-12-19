@@ -18,5 +18,4 @@ Based off [AngelScript Language Support](https://github.com/hmatt1/angelscript-i
         - Panorama XML format
         - Panorama js functions, objects and classes
         - Gameinfo.txt
-        - KV 3 (undecided)
         - FGD
