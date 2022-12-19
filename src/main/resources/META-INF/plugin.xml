@@ -1,7 +1,7 @@
 <idea-plugin>
 	<id>com.enderzombi102.css</id>
 	<name>Chaos Source Support</name>
-	<vendor email="enderzombi102.end@gmail.com" url="https://github.com/ENDERZOMBI102/ChaosSourceSupport">
+	<vendor email="enderzombi102.end@gmail.com" url="https://github.com/ChaosInitiative/ChaosSourceSupport">
 		ENDERZOMBI102
 	</vendor>
 
@@ -23,10 +23,9 @@
 
 	<!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html on how to target different products -->
 	<depends>com.intellij.modules.platform</depends>
-	<depends>com.intellij.modules.java</depends>
 
 	<extensions defaultExtensionNs="com.intellij">
-		<!-- Add your extensions here -->
+		<!-- region angelscript -->
 		<fileType
 				name="AngelScript File"
 				implementationClass="com.enderzombi102.css.lang.angelscript.AngelScriptFileType"
@@ -55,6 +54,37 @@
 		<!--        <psi.referenceContributor language="AngelScript" implementation="org.intellij.sdk.lang.AngelScriptReferenceContributor"/>-->
 		<gotoSymbolContributor implementation="com.enderzombi102.css.lang.angelscript.AngelScriptChooseByNameContributor"/>
 		<colorSettingsPage implementation="com.enderzombi102.css.lang.angelscript.AngelScriptColorSettingsPage"/>
+        <!-- endregion angelscript -->
+        <!-- region squirrel -->
+        <fileType
+                name="Squirrel File"
+                implementationClass="com.enderzombi102.css.lang.squirrel.SquirrelFileType"
+                fieldName="INSTANCE"
+                language="Squirrel"
+                extensions="nut"
+        />
+
+<!--        <completion.contributor-->
+<!--                language="AngelScript"-->
+<!--                implementationClass="com.enderzombi102.css.lang.angelscript.AngelScriptCompletionContributor"-->
+<!--        />-->
+
+<!--        <lang.parserDefinition-->
+<!--                language="AngelScript"-->
+<!--                implementationClass="com.enderzombi102.css.lang.angelscript.AngelScriptParserDefinition"-->
+<!--        />-->
+        <lang.syntaxHighlighterFactory
+                language="Squirrel"
+                implementationClass="com.enderzombi102.css.lang.squirrel.SquirrelSyntaxHighlighterFactory"
+        />
+<!--        <lang.refactoringSupport-->
+<!--                language="AngelScript"-->
+<!--                implementationClass="com.enderzombi102.css.lang.angelscript.AngelScriptRefactoringSupportProvider"-->
+<!--        />-->
+<!--            <psi.referenceContributor language="AngelScript" implementation="org.intellij.sdk.lang.AngelScriptReferenceContributor"/>-->
+<!--        <gotoSymbolContributor implementation="com.enderzombi102.css.lang.angelscript.AngelScriptChooseByNameContributor"/>-->
+<!--        <colorSettingsPage implementation="com.enderzombi102.css.lang.angelscript.AngelScriptColorSettingsPage"/>-->
+        <!-- endregion squirrel -->
 	</extensions>
 
 	<actions>
