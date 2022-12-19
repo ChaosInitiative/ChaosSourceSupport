@@ -16,7 +16,7 @@ Currently all tokens can have syntax highlighting, such as `==`, `;`, keywords, 
 
 All highlighter colors can be changed on the settings page.
 
-![](./assets/Intellij%20AngelScript%20Color%20Settings.png)
+![](https://github.com/hmatt1/angelscript-intellij/raw/main/assets/Intellij%20AngelScript%20Color%20Settings.png)
 
 ### Variable Name Code-completion
 
