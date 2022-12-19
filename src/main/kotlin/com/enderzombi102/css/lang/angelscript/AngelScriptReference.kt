@@ -1,6 +1,6 @@
 package com.enderzombi102.css.lang.angelscript
 
-import com.enderzombi102.css.ChaosSourceSupportIcons
+import com.enderzombi102.css.CssIcons
 import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiElementResolveResult
@@ -28,7 +28,7 @@ class AngelScriptReference(element: PsiElement) : PsiReferenceBase<PsiElement>(e
 				add(
 					LookupElementBuilder
 						.create(scriptVar)
-						.withIcon(ChaosSourceSupportIcons.AS_FILE)
+						.withIcon(CssIcons.AS_FILE)
 						.withTypeText(scriptVar.ident)
 				)
 			}

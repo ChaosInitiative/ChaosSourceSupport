@@ -1,6 +1,6 @@
 package com.enderzombi102.css.lang.angelscript.psi.impl;
 
-import com.enderzombi102.css.ChaosSourceSupportIcons;
+import com.enderzombi102.css.CssIcons;
 import com.enderzombi102.css.lang.angelscript.psi.AngelScriptElementTypes;
 import com.enderzombi102.css.lang.angelscript.psi.AngelScriptIdentifier;
 import com.enderzombi102.css.lang.angelscript.psi.AngelScriptVar;
@@ -72,7 +72,7 @@ public class AngelScriptPsiImplUtil {
 
 			@Override
 			public Icon getIcon(boolean unused) {
-				return ChaosSourceSupportIcons.AS_FILE;
+				return CssIcons.AS_FILE;
 			}
 		};
 	}

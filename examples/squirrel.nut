@@ -40,7 +40,7 @@ class Player extends Entity {
 	}
 
 	function DoDomething() {
-		::print("something");
+		yield ::print("something");
 	}
 }
 

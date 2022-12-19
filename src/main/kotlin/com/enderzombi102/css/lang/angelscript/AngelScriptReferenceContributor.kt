@@ -6,15 +6,15 @@ import com.intellij.util.ProcessingContext
 
 class AngelScriptReferenceContributor : PsiReferenceContributor() {
 	override fun registerReferenceProviders( registrar: PsiReferenceRegistrar ) {
-		registrar.registerReferenceProvider(
-			PlatformPatterns.psiElement( PsiLiteralExpression::class.java ),
-			object : PsiReferenceProvider() {
-				override fun getReferencesByElement( element: PsiElement, context: ProcessingContext ) =
-					if ( ( element as PsiLiteralExpression ).value is String )
-						arrayOf( AngelScriptReference(element) )
-					else
-						PsiReference.EMPTY_ARRAY
-			}
-		)
+//		registrar.registerReferenceProvider(
+//			PlatformPatterns.psiElement( PsiLiteralExpression::class.java ),
+//			object : PsiReferenceProvider() {
+//				override fun getReferencesByElement( element: PsiElement, context: ProcessingContext ) =
+//					if ( ( element as PsiLiteralExpression ).value is String )
+//						arrayOf( AngelScriptReference(element) )
+//					else
+//						PsiReference.EMPTY_ARRAY
+//			}
+//		)
 	}
 }

@@ -5,11 +5,11 @@ import com.intellij.openapi.fileTypes.SyntaxHighlighter
 import com.intellij.openapi.options.colors.AttributesDescriptor
 import com.intellij.openapi.options.colors.ColorDescriptor
 import com.intellij.openapi.options.colors.ColorSettingsPage
-import com.enderzombi102.css.ChaosSourceSupportIcons
+import com.enderzombi102.css.CssIcons
 import javax.swing.Icon
 
 class AngelScriptColorSettingsPage : ColorSettingsPage {
-	override fun getIcon(): Icon = ChaosSourceSupportIcons.AS_FILE
+	override fun getIcon(): Icon = CssIcons.AS_FILE
 
 	override fun getHighlighter(): SyntaxHighlighter = AngelScriptSyntaxHighlighter()
 

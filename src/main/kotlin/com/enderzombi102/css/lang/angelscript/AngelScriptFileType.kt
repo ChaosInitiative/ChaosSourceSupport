@@ -1,6 +1,6 @@
 package com.enderzombi102.css.lang.angelscript
 
-import com.enderzombi102.css.ChaosSourceSupportIcons
+import com.enderzombi102.css.CssIcons
 import com.intellij.openapi.fileTypes.LanguageFileType
 import com.intellij.openapi.util.NlsContexts.Label
 import com.intellij.openapi.util.NlsSafe
@@ -22,6 +22,6 @@ object AngelScriptFileType : LanguageFileType(AngelScriptLanguage) {
 	}
 
 	override fun getIcon(): Icon {
-		return ChaosSourceSupportIcons.AS_FILE
+		return CssIcons.AS_FILE
 	}
 }

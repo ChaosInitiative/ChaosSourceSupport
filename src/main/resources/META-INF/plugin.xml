@@ -62,16 +62,20 @@
                 language="Squirrel"
                 extensions="nut"
         />
+        <lang.documentationProvider
+                language="Squirrel"
+                implementationClass="com.enderzombi102.css.lang.squirrel.docs.SquirrelDocumentationProvider"
+        />
+        <lang.parserDefinition
+                language="Squirrel"
+                implementationClass="com.enderzombi102.css.lang.squirrel.SquirrelParserDefinition"
+        />
 
 <!--        <completion.contributor-->
 <!--                language="AngelScript"-->
 <!--                implementationClass="com.enderzombi102.css.lang.angelscript.AngelScriptCompletionContributor"-->
 <!--        />-->
 
-<!--        <lang.parserDefinition-->
-<!--                language="AngelScript"-->
-<!--                implementationClass="com.enderzombi102.css.lang.angelscript.AngelScriptParserDefinition"-->
-<!--        />-->
         <lang.syntaxHighlighterFactory
                 language="Squirrel"
                 implementationClass="com.enderzombi102.css.lang.squirrel.SquirrelSyntaxHighlighterFactory"
