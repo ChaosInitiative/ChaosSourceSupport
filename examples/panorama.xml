@@ -1,4 +1,3 @@
-<!-- PANORAMA XML EXAMPLE -->
 <root>
 	<styles>
 		<include src="file://{resources}/styles/chaosstyles.sass" />
@@ -12,23 +11,12 @@
 		<snippet name="MainMenuMovieSnippet">
 			<Panel>
 				<!-- Source is set in script. -->
-				<Movie
-						class="MainMenuModeOnly"
-						id="MainMenuMovie"
-						src=""
-						sound=""
-						controls="none"
-						repeat="true"
-						hittest="false" />
+				<Movie class="MainMenuModeOnly" id="MainMenuMovie" src="" sound="" controls="none" repeat="true" hittest="false" />
 			</Panel>
 		</snippet>
 		<snippet name="MainMenuTopBarCampaignEntry">
-			<Button class="MainMenuTopBarCampaignContentListEntry"
-					group="MainMenuTopBarCampaignContent"
-					onactivate="">
-				<Image	src=""
-						  defaultsrc=""
-						  scaling="stretch-to-cover-preserve-aspect" />
+			<Button class="MainMenuTopBarCampaignContentListEntry" group="MainMenuTopBarCampaignContent" onactivate="">
+				<Image	src="" defaultsrc="" scaling="stretch-to-cover-preserve-aspect" />
 				<Label text="" />
 			</Button>
 		</snippet>
@@ -107,17 +95,13 @@
 				<Button class="MainMenuTopBarCampaignContentListEntry"
 						group="MainMenuTopBarCampaignContent"
 						onactivate="MainMenuController.displayStartupCampaign( 'p2ce' );">
-					<Image	src=""
-							  defaultsrc="file://{images}/menu/p2ce/logo.png"
-							  scaling="stretch-to-cover-preserve-aspect" />
+					<Image src="" defaultsrc="file://{images}/menu/p2ce/logo.png" scaling="stretch-to-cover-preserve-aspect" />
 					<Label text="Portal 2: Community Edition" />
 				</Button>
 				<Button class="MainMenuTopBarCampaignContentListEntry"
 						group="MainMenuTopBarCampaignContent"
 						onactivate="MainMenuController.displayStartupCampaign( 'portal2' );">
-					<Image	src=""
-							  defaultsrc="file://{images}/menu/portal2/logo.png"
-							  scaling="stretch-to-cover-preserve-aspect" />
+					<Image src="" defaultsrc="file://{images}/menu/portal2/logo.png" scaling="stretch-to-cover-preserve-aspect" />
 					<Label text="Portal 2" />
 				</Button>
 			</Panel>
