@@ -23,6 +23,8 @@
     <depends optional="true" config-file="intellilang-integration-plugin.xml">org.intellij.intelliLang</depends>
     <!--TODO: Depend on js and intellilang-->
 
+    <projectListeners />
+
 	<extensions defaultExtensionNs="com.intellij">
 		<!-- region angelscript -->
 		<fileType
@@ -88,9 +90,13 @@
 <!--        <gotoSymbolContributor implementation="com.enderzombi102.css.lang.angelscript.AngelScriptChooseByNameContributor"/>-->
 <!--        <colorSettingsPage implementation="com.enderzombi102.css.lang.angelscript.AngelScriptColorSettingsPage"/>-->
         <!-- endregion squirrel -->
+        <!-- region panorama -->
+        <xml.xmlExtension implementation="com.enderzombi102.css.panorama.xml.PanoramaXmlExtension"/>
+        <xml.schemaProvider implementation="com.enderzombi102.css.panorama.xml.PanoramaXmlSchemaProvider"/>
+
+        <psi.referenceContributor implementation="com.enderzombi102.css.panorama.xml.PanoramaReferencesContributor" language="XML"/>
+        <!-- endregion panorama -->
 	</extensions>
 
-	<actions>
-		<!-- TODO: Actions -->
-	</actions>
+    <actions />
 </idea-plugin>
