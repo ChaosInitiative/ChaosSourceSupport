@@ -162,12 +162,12 @@
 	]
 }
 
-SCRIPT        ::= (SETTING | IMPORT | ENUM | TYPEDEF | CLAZZ | MIXIN | INTERFACE | FUNCDEF | VIRTPROP | VAR | STATEMENT | FUNC | FUNCC | NAMESPA | ';' | STRUCT)* {recoverWhile=script_recover}
+SCRIPT        ::= (SETTING | IMPORT | ENUM | TYPE_DEF | CLAZZ | MIXIN | INTERFACE | FUNCDEF | VIRTPROP | VAR | STATEMENT | FUNC | FUNCC | NAMESPACE | ';' | STRUCT)* {recoverWhile=script_recover}
 private script_recover ::= !(';')
 
 CLAZZ         ::= ('shared' | 'abstract' | 'final' | 'external')* t_class IDENTIFIER (';' | ((':' VARACCESS (',' VARACCESS)*)? '{' (SETTING | VIRTPROP | FUNC | FUNCC | VAR | FUNCDEF | STATEMENT | STRUCT )* '}')) {pin=2}
-TYPEDEF       ::= 'typedef' PRIMTYPE IDENTIFIER ';' {pin=1}
-NAMESPA       ::= ('namespace' IDENTIFIER ('::' IDENTIFIER)* '{' (SETTING | IMPORT | ENUM | TYPEDEF | CLAZZ | MIXIN | INTERFACE | FUNCDEF | VIRTPROP | VAR | FUNC | FUNCC | ';' | STATEMENT | NAMESPA | STRUCT )* '}') {pin=1}
+TYPE_DEF      ::= 'typedef' PRIMTYPE IDENTIFIER ';' {pin=1}
+NAMESPACE     ::= ('namespace' IDENTIFIER ('::' IDENTIFIER)* '{' (SETTING | IMPORT | ENUM | TYPE_DEF | CLAZZ | MIXIN | INTERFACE | FUNCDEF | VIRTPROP | VAR | FUNC | FUNCC | ';' | STATEMENT | NAMESPACE | STRUCT )* '}') {pin=1}
 FUNCC         ::= ('shared' | 'external')* ('private' | 'protected')? IDENTIFIER PARAMLIST 'const'? FUNCATTR (';' | STATBLOCK)
 FUNC          ::= ('shared' | 'external')* ('private' | 'protected')? ((TYPE '&'?) | '~')? IDENTIFIER PARAMLIST 'const'? FUNCATTR (';' | STATBLOCK)
 INTERFACE     ::= ('external' | 'shared')* ('interface') IDENTIFIER (';' | ((':' IDENTIFIER (',' IDENTIFIER)*)? '{' (VIRTPROP | INTFMTHD)* '}'))

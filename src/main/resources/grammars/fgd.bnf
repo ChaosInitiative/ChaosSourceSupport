@@ -1,0 +1,129 @@
+//noinspection BnfSuspiciousTokenForFile
+{
+	parserClass="com.enderzombi102.css.lang.squirrel.parser.SquirrelParser"
+	parserUtilClass="com.enderzombi102.css.lang.squirrel.parser.SquirrelParserUtil"
+
+	extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+	psiClassPrefix="Squirrel"
+	psiImplClassSuffix="Impl"
+	psiPackage="com.enderzombi102.css.lang.squirrel.psi"
+	psiImplPackage="com.enderzombi102.css.lang.squirrel.psi.impl"
+
+	elementTypeHolderClass="com.enderzombi102.css.lang.squirrel.psi.SquirrelElementTypes"
+	elementTypeClass="com.enderzombi102.css.lang.squirrel.psi.SquirrelElementType"
+	tokenTypeClass="com.enderzombi102.css.lang.squirrel.psi.SquirrelTokenType"
+	psiImplUtilClass="com.enderzombi102.css.lang.squirrel.psi.impl.SquirrelPsiImplUtil"
+
+	tokens = [
+		// region COMMENTS
+		t_block_comment        = 'regexp:(/\*(.|\n)*?\*/)'
+		t_line_comment         = "regexp:(//.*)"
+		// endregion COMMENTS
+
+		// region KEYWORDS
+		t_break                = 'break'
+		t_case                 = 'case'
+		t_catch                = 'catch'
+		t_class                = 'class'
+		t_clone                = 'clone'
+		t_continue             = 'continue'
+		t_const                = 'const'
+		t_default              = 'default'
+		t_delegate             = 'delegate'
+		t_delete               = 'delete'
+		t_else                 = 'else'
+		t_enum                 = 'enum'
+		t_extends              = 'extends'
+		t_for                  = 'for'
+		t_foreach              = 'foreach'
+		t_function             = 'function'
+		t_if                   = 'if'
+		t_in                   = 'in'
+		t_do                   = 'do' // MISSING IN OFFICIAL DOCS
+		t_local                = 'local'
+		t_null                 = 'null'
+		t_resume               = 'resume'
+		t_return               = 'return'
+		t_switch               = 'switch'
+		t_this                 = 'this'
+		t_throw                = 'throw'
+		t_try                  = 'try'
+		t_typeof               = 'typeof'
+		t_while                = 'while'
+		t_parent               = 'parent'
+		t_yield                = 'yield'
+		t_constructor          = 'constructor'
+		t_constructor          = 'instanceof'
+		t_vargc                = 'vargc'
+		// endregion KEYWORDS
+
+		// region OPERATORS
+		t_NOT                  = '!'
+		t_NOT_EQ               = '!='
+		t_COND_OR              = '||'
+		t_EQ                   = '=='
+		t_COND_AND             = '&&'
+		t_LESS                 = '<'
+		t_LESS_OR_EQUAL        = '<='
+		t_GREATER              = '>'
+		t_GREATER_OR_EQUAL     = '>='
+		t_PLUS                 = '+'
+		t_PLUS_ASSIGN          = '+='
+		t_MINUS                = '-'
+		t_MINUS_ASSIGN         = '-='
+		t_QUOTIENT             = '/'
+		t_QUOTIENT_ASSIGN      = '/='
+		t_MUL                  = '*'
+		t_MUL_ASSIGN           = '*='
+		t_REMAINDER            = '%'
+		t_REMAINDER_ASSIGN     = '%='
+		t_PLUS_PLUS            = '++'
+		t_MINUS_MINUS          = '--'
+		t_SEND_CHANNEL         = '<-'
+		t_ASSIGN               = '='
+		t_BIT_AND              = '&'
+		t_BIT_XOR              = '^'
+		t_BIT_OR               = '|'
+		t_TILDE                = '~'
+		t_SHIFT_RIGHT          = '>>'
+		t_SHIFT_LEFT		   = '<<'
+		t_SHIFT_SHIFT_RIGHT    = '>>>'
+		// endregion OPERATORS
+
+		// region OTHER TOKENS
+		t_LBRACE               = '{'
+		t_RBRACE               = '}'
+		t_LBRACK               = '['
+		t_RBRACK               = ']'
+		t_LPAREN               = '('
+		t_RPAREN               = ')'
+		t_COMMA                = ','
+		t_DOT 				   = '.'
+		t_DOTDOTDOT 		   = '...'
+		t_COLON				   = ':'
+		t_COLONCOLON		   = '::'
+		t_SEMICOLON			   = ';'
+		t_QUESTION			   = '?'
+		t_DQUOTE			   = '"'
+		t_AT_DQUOTE			   = '@"'
+		// endregion OTHER TOKENS
+
+		t_WHITE_SPACE          = 'regexp:\s+'
+		t_NEWLINE          = 'regexp:\R+'
+
+		t_ident                = 'regexp:([a-zA-Z_][a-zA-Z_0-9]*)' // _hello_w0rld
+		t_integer              = "regexp:((0x[0-9A-Fa-f]+)|[1-9][0-9]*|(0[0-7]+)|0|'.')" // 34 | 0xFF00A120 | 0753 | 0 | 'a'
+		t_float                = 'regexp:([0-9]+\.([e|E][+|\-]?)?[0-9]+)' // 1.52 | 1.e2 | 1.e-2
+
+		t_string               = 'regexp:"([^"\\]|\\.)*"' // "string"
+		t_string_block         = 'regexp:@"(.|\n)*"'  // @"verbatim string"
+	]
+}
+
+STATEMENTS    ::= ( STATEMENT ( ';' | t_NEWLINE ) )* STATEMENT? { recoverWhile = statements_recover }
+private statements_recover ::= !( ';' | t_NEWLINE | '}' )
+
+IDENTIFIER    ::= t_ident
+
+

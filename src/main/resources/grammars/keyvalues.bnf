@@ -1,0 +1,45 @@
+//noinspection BnfResolveForFile
+//noinspection BnfSuspiciousTokenForFile
+{
+	parserClass="com.enderzombi102.css.lang.keyvalues.parser.KeyValuesParser"
+	parserUtilClass="com.intellij.lang.parser.GeneratedParserUtilBase"
+
+	extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+	psiClassPrefix="KeyValues"
+	psiImplClassSuffix="Impl"
+	psiPackage="com.enderzombi102.css.lang.keyvalues.psi"
+	psiImplPackage="com.enderzombi102.css.lang.keyvalues.psi.impl"
+
+	elementTypeHolderClass="com.enderzombi102.css.lang.keyvalues.psi.KeyValuesElementTypes"
+	elementTypeClass="com.enderzombi102.css.lang.keyvalues.psi.KeyValuesElementType"
+	tokenTypeClass="com.enderzombi102.css.lang.keyvalues.psi.KeyValuesTokenType"
+
+	tokens = [
+		t_LINE_COMMENT         = 'regexp:(//.*)'
+
+		t_LBRACE               = '{'
+		t_RBRACE               = '}'
+		t_DQUOTE			   = '"'
+		t_NOT     			   = '!'
+		t_BOPEN    			   = '['
+		t_BCLOSE   			   = ']'
+		t_OR                   = '||'
+		t_AND                  = '&&'
+
+		t_WHITE_SPACE          = 'regexp:\s+'
+		t_NEWLINE              = 'regexp:\R+'
+
+		t_QUOTED               = 'regexp:"([^"])*"'
+		t_UNQUOTED             = 'regexp:([^"\s{}])+'
+		t_IDENTIFIER           = 'regexp:(\$[a-zA-Z0-9_]+)'
+	]
+}
+
+BODY        ::= DECLARATION+ { recoverWhile = statements_recover }
+private statements_recover ::= !( t_NEWLINE | '}' )
+
+CONDITIONAL ::= '!'? t_IDENTIFIER ( ( '||' | '&&' ) '!'? t_IDENTIFIER )*
+TEXT        ::= t_QUOTED | t_UNQUOTED
+DECLARATION ::= TEXT ( TEXT | BLOCK ) ( '[' CONDITIONAL ']' )?
+BLOCK       ::= '{' DECLARATION* '}'

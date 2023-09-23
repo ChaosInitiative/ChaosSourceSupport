@@ -1,0 +1,34 @@
+<idea-plugin package="com.enderzombi102.css.support.css">
+<!--    <extensions defaultExtensionNs="com.intellij">-->
+<!--        <applicationService serviceImplementation="org.jetbrains.plugins.javaFX.css.rename.JavaFxCssRefactoringsSettings"/>-->
+
+<!--        <psi.referenceContributor language="CSS" implementation="org.jetbrains.plugins.javaFX.css.refs.JavaFxCSSReferenceContributor"/>-->
+<!--        <psi.referenceContributor language="XML" implementation="org.jetbrains.plugins.javaFX.css.refs.JavaFxCSSXmlReferenceContributor"/>-->
+
+<!--        <css.elementDescriptorProvider implementation="org.jetbrains.plugins.javaFX.css.JavaFxCSSElementDescriptionProvider" order="first"/>-->
+<!--        <completion.contributor language="CSS" implementationClass="org.jetbrains.plugins.javaFX.css.JavaFxCssIdCompletionContributor"/>-->
+<!--        <automaticRenamerFactory implementation="org.jetbrains.plugins.javaFX.css.rename.JavaFxCssIdAutomaticRenamerFactory"/>-->
+<!--        <localInspection implementationClass="org.jetbrains.plugins.javaFX.css.inspections.JavaFxUnresolvedStyleClassReferenceInspection"-->
+<!--                         bundle="messages.JavaFxCssBundle"-->
+<!--                         key="unresolved.style.class.reference.display.name"-->
+<!--                         groupKey="unresolved.style.class.reference.group.name"-->
+<!--                         level="WARNING" enabledByDefault="true" language="XML"/>-->
+<!--        <referencesSearch implementation="org.jetbrains.plugins.javaFX.css.refs.JavaFxIdCssReferenceSearcher"/>-->
+<!--        <renamePsiElementProcessor implementation="org.jetbrains.plugins.javaFX.css.rename.JavaFxRenameCssIdSelectorProcessor"/>-->
+<!--        <css.dialect id="JavaFxCSSDialect" implementation="org.jetbrains.plugins.javaFX.css.JavaFxCSSDialect"/>-->
+<!--    </extensions>-->
+<!--    <extensions defaultExtensionNs="com.intellij">-->
+<!--        <intentionAction>-->
+<!--            <language>JAVA</language>-->
+<!--            <className>org.jetbrains.plugins.javaFX.css.intentions.JavaFxConvertCssToBinaryIntention</className>-->
+<!--            <bundleName>messages.JavaFXBundle</bundleName>-->
+<!--            <categoryKey>group.name.javafx</categoryKey>-->
+<!--        </intentionAction>-->
+<!--        <intentionAction>-->
+<!--            <language>CSS</language>-->
+<!--            <className>org.jetbrains.plugins.javaFX.css.intentions.JavaFxCss2ClassicIntention</className>-->
+<!--            <bundleName>messages.JavaFXBundle</bundleName>-->
+<!--            <categoryKey>group.name.javafx</categoryKey>-->
+<!--        </intentionAction>-->
+<!--    </extensions>-->
+</idea-plugin>
