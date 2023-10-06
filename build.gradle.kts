@@ -1,5 +1,5 @@
 plugins {
-    id("org.jetbrains.intellij") version "1.11.0"
+    id("org.jetbrains.intellij") version "1.16.0"
     kotlin("jvm") version "1.7.20"
     idea
     java
@@ -11,6 +11,7 @@ idea.module.generatedSourceDirs.add( file("src/main/gen") )
 repositories.mavenCentral()
 
 dependencies {
+	implementation( "org.eclipse.lsp4j:org.eclipse.lsp4j.debug:0.10.0" )
 	testImplementation( kotlin("script-runtime") )
 	testImplementation( "org.junit.jupiter:junit-jupiter" )
 	testImplementation( platform( "org.junit:junit-bom:5.9.1" ) )
