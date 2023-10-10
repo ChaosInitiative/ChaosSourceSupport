@@ -1,1 +1,1 @@
-rootProject.name = "ChaosSourceSupport"
+rootProject.name = "Intellij-Source"
